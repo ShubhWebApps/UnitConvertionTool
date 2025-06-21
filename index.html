@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free online unit conversion tools - Convert length, weight, temperature, time, and more with our easy-to-use calculator">
+    <meta name="keywords" content="unit converter, measurement converter, length converter, weight converter, temperature converter, online calculator">
+    <meta name="author" content="UnitConvertPro">
+    <meta name="robots" content="index, follow">
+    <title>UnitConvertPro | Free Online Unit Conversion Tools</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --gray-color: #6c757d;
+            --success-color: #4bb543;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #f5f7ff;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: var(--box-shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 0;
+            position: relative;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 25px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            border: none;
+            font-size: 1rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 5px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover {
+            background-color: var(--secondary-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Converter Section */
+        .converter-section {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 25px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .converter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .converter-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--dark-color);
+            display: block;
+        }
+
+        .converter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .converter-icon {
+            background-color: var(--primary-color);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .converter-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .converter-card p {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .ad-container {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .ad-label {
+            font-size: 0.8rem;
+            color: var(--gray-color);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Popular Converters */
+        .popular-converters {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+        }
+
+        .popular-list {
+            list-style: none;
+        }
+
+        .popular-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .popular-list li:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .popular-list a {
+            text-decoration: none;
+            color: var(--dark-color);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .popular-list a:hover {
+            color: var(--primary-color);
+        }
+
+        .popular-list i {
+            color: var(--primary-color);
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #adb5bd;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: var(--box-shadow);
+                padding: 20px;
+                transform: translateY(-150%);
+                transition: var(--transition);
+                z-index: 99;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 40px 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .logo-text {
+                font-size: 1.2rem;
+            }
+            
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .search-input {
+                padding: 12px 15px;
+            }
+            
+            .search-btn {
+                padding: 8px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="/" class="logo">
+                <i class="fas fa-exchange-alt"></i>
+                <span class="logo-text">UnitConvertPro</span>
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/all-tools.html">All Tools</a></li>
+                    <li><a href="/categories.html">Categories</a></li>
+                    <li><a href="/blog.html">Blog</a></li>
+                    <li><a href="/about.html">About</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Convert Any Unit in Seconds</h1>
+            <p>Free online unit conversion tools for length, weight, temperature, time, and more. Fast, accurate, and easy to use!</p>
+            
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search for a converter (e.g., 'kg to lbs')...">
+                <button class="search-btn"><i class="fas fa-search"></i> Search</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Converter Section -->
+            <div class="converter-section">
+                <h2 class="section-title">
+                    <i class="fas fa-calculator"></i>
+                    Popular Unit Converters
+                </h2>
+                
+                <div class="converter-grid">
+                    <a href="/length-converter.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-ruler"></i>
+                        </div>
+                        <h3>Length Converter</h3>
+                        <p>Convert between meters, feet, inches, yards, miles, and more</p>
+                    </a>
+                    
+                    <a href="/weight-converter.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-weight-hanging"></i>
+                        </div>
+                        <h3>Weight Converter</h3>
+                        <p>Convert between kilograms, pounds, ounces, grams, and more</p>
+                    </a>
+                    
+                    <a href="/temperature-converter.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-temperature-high"></i>
+                        </div>
+                        <h3>Temperature Converter</h3>
+                        <p>Convert between Celsius, Fahrenheit, Kelvin, and more</p>
+                    </a>
+                    
+                    <a href="/time-converter.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Time Converter</h3>
+                        <p>Convert between seconds, minutes, hours, days, and more</p>
+                    </a>
+                    
+                    <a href="/volume-converter.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-flask"></i>
+                        </div>
+                        <h3>Volume Converter</h3>
+                        <p>Convert between liters, gallons, milliliters, cups, and more</p>
+                    </a>
+                    
+                    <a href="/area-converter.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-vector-square"></i>
+                        </div>
+                        <h3>Area Converter</h3>
+                        <p>Convert between square meters, square feet, acres, and more</p>
+                    </a>
+                    
+                    <a href="/speed-converter.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-tachometer-alt"></i>
+                        </div>
+                        <h3>Speed Converter</h3>
+                        <p>Convert between km/h, mph, m/s, knots, and more</p>
+                    </a>
+                    
+                    <a href="/data-converter.html" class="converter-card">
+                        <div class="converter-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Data Storage Converter</h3>
+                        <p>Convert between bits, bytes, kilobytes, megabytes, and more</p>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Ad Container -->
+                <div class="ad-container">
+                    <div class="ad-label">Advertisement</div>
+                    <!-- Replace with your AdSense code -->
+                    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ADSENSE_ID"
+                            crossorigin="anonymous"></script>
+                    <!-- Homepage Banner Ad -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-YOUR_ADSENSE_ID"
+                         data-ad-slot="YOUR_AD_SLOT_ID"
+                         data-ad-format="auto"
+                         data-full-width-responsive="true"></ins>
+                    <script>
+                         (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+                
+                <!-- Popular Converters -->
+                <div class="popular-converters">
+                    <h3 class="section-title">
+                        <i class="fas fa-fire"></i>
+                        Most Used Converters
+                    </h3>
+                    
+                    <ul class="popular-list">
+                        <li><a href="/kg-to-lbs.html"><i class="fas fa-arrow-right"></i> kg to lbs</a></li>
+                        <li><a href="/celsius-to-fahrenheit.html"><i class="fas fa-arrow-right"></i> Celsius to Fahrenheit</a></li>
+                        <li><a href="/cm-to-inches.html"><i class="fas fa-arrow-right"></i> cm to inches</a></li>
+                        <li><a href="/liters-to-gallons.html"><i class="fas fa-arrow-right"></i> liters to gallons</a></li>
+                        <li><a href="/km-to-miles.html"><i class="fas fa-arrow-right"></i> km to miles</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Features Section -->
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Fast Conversions</h3>
+                <p>Get instant results without any delays. Our tools are optimized for speed and performance.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Accurate Results</h3>
+                <p>All conversions are calculated with precision using up-to-date conversion factors.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h3>No Registration</h3>
+                <p>Use all our tools for free without any signup. No personal data collection.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>UnitConvertPro</h3>
+                    <p>Your one-stop solution for all unit conversion needs. Fast, accurate, and completely free to use.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/all-tools.html">All Tools</a></li>
+                        <li><a href="/categories.html">Categories</a></li>
+                        <li><a href="/blog.html">Blog</a></li>
+                        <li><a href="/about.html">About Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Popular Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="/length-converter.html">Length Converter</a></li>
+                        <li><a href="/weight-converter.html">Weight Converter</a></li>
+                        <li><a href="/temperature-converter.html">Temperature Converter</a></li>
+                        <li><a href="/time-converter.html">Time Converter</a></li>
+                        <li><a href="/volume-converter.html">Volume Converter</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="/contact.html">Contact Us</a></li>
+                        <li><a href="/faq.html">FAQ</a></li>
+                        <li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/sitemap.xml">Sitemap</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 UnitConvertPro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('#mainNav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // Search functionality
+        const searchInput = document.querySelector('.search-input');
+        const searchBtn = document.querySelector('.search-btn');
+        
+        searchBtn.addEventListener('click', () => {
+            const searchTerm = searchInput.value.trim();
+            if (searchTerm) {
+                // In a real implementation, this would redirect to search results
+                alert(`Searching for: ${searchTerm}`);
+                // window.location.href = `/search.html?q=${encodeURIComponent(searchTerm)}`;
+            }
+        });
+        
+        // Allow search on Enter key
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                searchBtn.click();
+            }
+        });
+        
+        // Google Analytics (replace with your tracking ID)
+        // window.dataLayer = window.dataLayer || [];
+        // function gtag(){dataLayer.push(arguments);}
+        // gtag('js', new Date());
+        // gtag('config', 'GA_MEASUREMENT_ID');
+    </script>
+</body>
+</html>
